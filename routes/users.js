@@ -21,7 +21,8 @@ router.post('/', function (req, res, next) {
                               subject: 'user'
                             }
                         );
-    res.send(token);
+  console.log(req.body.id + ", " + req.body.username);
+  res.send(token);
 });
 
 module.exports = router;
