@@ -1,6 +1,8 @@
 var express = require('express');
-const jwt = require('jsonwebtoken');
+var jwt = require('jsonwebtoken');
 var router = express.Router();
+var auth = require('./auth');
+const secretKey = auth.scretKey;
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -8,7 +10,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  const secretKey = 'jwt-secret';
   const token = jwt.sign(
                             {
                               id: req.body.id,
@@ -23,6 +24,21 @@ router.post('/', function (req, res, next) {
                         );
   console.log(req.body.id + ", " + req.body.username);
   res.send(token);
+});
+
+router.get('/auth',function (req, res, next) {
+    const token = req.get('access-token');
+
+    if (typeof token !== 'undefined') {
+        const decoded = jwt.verify(token, secretKey);
+        const resData = {
+            id : decoded.id,
+            username : decoded.username,
+        };
+        res.send(resData);
+    } else {
+        res.sendStatus(403);
+    }
 });
 
 module.exports = router;
