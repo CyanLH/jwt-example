@@ -12,14 +12,15 @@ router.get('/', function(req, res, next) {
 router.post('/', function (req, res, next) {
   const token = jwt.sign(
                             {
-                              id: req.body.id,
-                              username: req.body.username,
+                                id: req.body.id,
+                                username: req.body.username,
                             },
                             secretKey,
                             {
-                              expiresIn: '7d',
-                              issuer: 'test',
-                              subject: 'user'
+                                expirationTime: '7d',
+                                // expiresIn: '7d',
+                                issuer: 'test',
+                                subject: 'user'
                             }
                         );
   console.log(req.body.id + ", " + req.body.username);
