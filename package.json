@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "supervisor ./bin/www"
+    "start": "nodemon ./bin/www --exec babel-node"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -18,6 +18,10 @@
     "morgan": "^1.9.1"
   },
   "devDependencies": {
-    "eslint": "^6.6.0"
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "eslint": "^6.6.0",
+    "nodemon": "^2.0.1"
   }
 }
