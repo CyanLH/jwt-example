@@ -1,7 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
-import auth from './auth';
+const auth = require('./auth');
 const secretKey = auth.secretKey;
 
 /* GET users listing. */
