@@ -31,16 +31,20 @@ router.post('/', function (req, res, next) {
 
 router.get('/auth',function (req, res, next) {
     const token = req.get('access-token');
+    let result_code = null;
 
     if (typeof token !== 'undefined') {
-        const decoded = jwt.verify(token, secretKey);
-        const resData = {
-            id : decoded.id,
-            username : decoded.username,
-        };
-        res.send(resData);
+        try{
+            const decoded = jwt.verify(token, secretKey);
+            result_code = 0;
+            res.send(result_code);
+        } catch (e) {
+            result_code = 1;
+            res.send(result_code)
+        }
     } else {
-        res.sendStatus(403);
+        result_code = 1;
+        res.send(result_code);
     }
 });
 
