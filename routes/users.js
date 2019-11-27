@@ -20,7 +20,7 @@ router.post('/', function (req, res, next) {
                             secretKey,
                             {
                                 // expirationTime: '7d',
-                                expiresIn: '7d',
+                                expiresIn: '1min',
                                 issuer: 'test',
                                 subject: 'user'
                             }
@@ -34,18 +34,20 @@ router.get('/auth',function (req, res, next) {
     let result = null;
 
     if (typeof token !== 'undefined') {
-        try{
-            const decoded = jwt.verify(token, secretKey);
-            result = {
-                result_code: 0,
-            };
-            res.send(result);
-        } catch (e) {
-            result = {
-                result_code: 1,
-            };
-            res.send(result)
-        }
+        jwt.verify(token, secretKey, function (err, decoded) {
+            if(err){
+                result = {
+                    result_code: 1,
+                };
+                res.send(result);
+            } else {
+                console.log(decoded);
+                result = {
+                    result_code: 0,
+                };
+                res.send(result);
+            }
+        })
     } else {
         result = {
             result_code: 1,
