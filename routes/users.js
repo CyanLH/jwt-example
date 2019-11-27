@@ -31,20 +31,26 @@ router.post('/', function (req, res, next) {
 
 router.get('/auth',function (req, res, next) {
     const token = req.get('access-token');
-    let result_code = null;
+    let result = null;
 
     if (typeof token !== 'undefined') {
         try{
             const decoded = jwt.verify(token, secretKey);
-            result_code = 0;
-            res.send(result_code);
+            result = {
+                result_code: 0,
+            };
+            res.send(result);
         } catch (e) {
-            result_code = 1;
-            res.send(result_code)
+            result = {
+                result_code: 1,
+            };
+            res.send(result)
         }
     } else {
-        result_code = 1;
-        res.send(result_code);
+        result = {
+            result_code: 1,
+        };
+        res.send(result);
     }
 });
 
