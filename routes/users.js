@@ -20,7 +20,7 @@ router.post('/', function (req, res, next) {
                             secretKey,
                             {
                                 // expirationTime: '7d',
-                                expiresIn: '5s',
+                                expiresIn: '2h',
                                 issuer: 'test',
                                 subject: 'user'
                             }
